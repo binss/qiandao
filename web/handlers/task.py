@@ -29,17 +29,24 @@ class TaskNewHandler(BaseHandler):
                 if tpl.get('id'):
                     tplid = tpl['id']
                     break
-        tplid = int(tplid)
+        if tplid:
+            tplid = int(tplid)
+            tpl = self.check_permission(self.db.tpl.get(tplid, fields=('id', 'userid', 'note', 'sitename', 'siteurl', 'variables')))
+            variables = json.loads(tpl['variables'])
+        else:
+            tpl = None
+            variables = []
 
-        tpl = self.check_permission(self.db.tpl.get(tplid, fields=('id', 'userid', 'note', 'sitename', 'siteurl', 'variables')))
-        variables = json.loads(tpl['variables'])
-        
         self.render('task_new.html', tpls=tpls, tplid=tplid, tpl=tpl, variables=variables, task={})
 
     @tornado.web.authenticated
     def post(self, taskid=None):
         user = self.current_user
-        tplid = int(self.get_body_argument('_binux_tplid'))
+        tplid = self.get_body_argument('_binux_tplid', None)
+        if not tplid:
+            self.write('<h2 class="alert alert-danger text-center">Cannot find the tpl</h2>')
+            return
+        tplid = int(tplid_str)
         tested = self.get_body_argument('_binux_tested', False)
         note = self.get_body_argument('_binux_note')
 

@@ -96,7 +96,8 @@ class TPLRunHandler(BaseHandler):
             try:
                 fetch_tpl = json.loads(self.get_argument('tpl'))
             except:
-                raise HTTPError(400)
+                self.write('<h2 class="alert alert-danger text-center">Cannot find the tpl</h2>')
+                return
 
         env = data.get('env')
         if not env:
