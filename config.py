@@ -47,13 +47,13 @@ download_size_limit = 1*1024*1024
 proxies = []
 
 # 域名
-domain = 'qiandao.today'
+domain = ''
 
 # mailgun 邮件发送, 域名和 apikey
 mail_smtp = ""
 mail_user = ""
 mail_password = ""
-mail_domain = "mail.qiandao.today"
+mail_domain = ""
 mailgun_key = ""
 
 # google analytics
