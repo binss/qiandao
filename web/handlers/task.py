@@ -46,7 +46,7 @@ class TaskNewHandler(BaseHandler):
         if not tplid:
             self.write('<h2 class="alert alert-danger text-center">Cannot find the tpl</h2>')
             return
-        tplid = int(tplid_str)
+        tplid = int(tplid)
         tested = self.get_body_argument('_binux_tested', False)
         note = self.get_body_argument('_binux_note')
 
